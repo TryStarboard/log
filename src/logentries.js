@@ -1,20 +1,30 @@
 'use strict';
 
-const config = require('config');
 const es = require('event-stream');
-const Loggly = require('le_node');
+const Logentries = require('le_node');
 const {transformLogData} = require('./util');
 
-const definition = Loggly.bunyanStream({
-  token: config.get('logging.Logentries.token')
-});
+/**
+ * @param  {Object} opts
+ * @param  {string} opts.token
+ * @return {Object}
+ */
+function createDefinition(opts) {
+  const definition = Logentries.bunyanStream({
+    token: opts.token,
+  });
 
-const transformStream = es.map((data, cb) => {
-  cb(null, transformLogData(data));
-});
+  const transformStream = es.map((data, cb) => {
+    cb(null, transformLogData(data));
+  });
 
-// Replace stream
-transformStream.pipe(definition.stream);
-definition.stream = transformStream;
+  // Replace stream
+  transformStream.pipe(definition.stream);
+  definition.stream = transformStream;
 
-module.exports = definition;
+  return definition;
+}
+
+module.exports = {
+  createDefinition,
+};
