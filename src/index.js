@@ -16,7 +16,7 @@ const createSentryDefinition = require('./sentry').createDefinition;
  */
 function createLogger(opts) {
   const _opts = {
-    name: opts.env,
+    name: opts.name,
     env: opts.env,
     serializers: merge(bunyan.stdSerializers, {
       // Don't serialize error here, Sentry needs the original error object
