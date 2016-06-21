@@ -13,10 +13,14 @@
     "raven": "0.11.0"
   },
   "devDependencies": {
+    "eslint": "2.13.1",
+    "eslint-plugin-node": "1.5.0",
     "greenkeeper-postpublish": "^1.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src",
+    "watch:lint": "npm run lint -s; onchange -v 'src/**/*.js' -- npm run lint -s",
+    "test": "npm run lint",
     "postversion": "git push && git push --tags",
     "postpublish": "greenkeeper-postpublish"
   }

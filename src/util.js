@@ -22,7 +22,7 @@ const transformLogData = evolve({
       identity, // filter out falsy value
       pipe(
         invoker(1, 'split')(/; /),
-        map(invoker(1, 'split')(/=/)),
+        map(invoker(1, 'split')(/\=/)),
         fromPairs
       )
     )
