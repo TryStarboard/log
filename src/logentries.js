@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const es = require('event-stream');
-const Logentries = require('le_node');
-const {transformLogData} = require('./util');
+const es = require('event-stream')
+const Logentries = require('le_node')
+const {transformLogData} = require('./util')
 
 /**
  * @param  {Object} opts
@@ -11,20 +11,20 @@ const {transformLogData} = require('./util');
  */
 function createDefinition(opts) {
   const definition = Logentries.bunyanStream({
-    token: opts.token,
-  });
+    token: opts.token
+  })
 
   const transformStream = es.map((data, cb) => {
-    cb(null, transformLogData(data));
-  });
+    cb(null, transformLogData(data))
+  })
 
   // Replace stream
-  transformStream.pipe(definition.stream);
-  definition.stream = transformStream;
+  transformStream.pipe(definition.stream)
+  definition.stream = transformStream
 
-  return definition;
+  return definition
 }
 
 module.exports = {
-  createDefinition,
-};
+  createDefinition
+}

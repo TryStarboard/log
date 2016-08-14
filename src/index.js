@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-const bunyan = require('bunyan');
-const {identity, merge} = require('ramda');
-const createLogentriesDefinition = require('./logentries').createDefinition;
-const createSentryDefinition = require('./sentry').createDefinition;
+const bunyan = require('bunyan')
+const {identity, merge} = require('ramda')
+const createLogentriesDefinition = require('./logentries').createDefinition
+const createSentryDefinition = require('./sentry').createDefinition
 
 /**
  * @param  {Object} opts
@@ -21,11 +21,11 @@ function createLogger(opts) {
     serializers: merge(bunyan.stdSerializers, {
       // Don't serialize error here, Sentry needs the original error object
       err: identity
-    }),
-  };
+    })
+  }
 
   if (opts.env !== 'production') {
-    _opts.streams = [require('./pretty')];
+    _opts.streams = [require('./pretty')]
   } else {
     _opts.streams = [
       {
@@ -33,23 +33,23 @@ function createLogger(opts) {
       },
       createSentryDefinition({
         dsn: opts.sentryDsn,
-        options: opts.sentryOptions,
+        options: opts.sentryOptions
       }),
       createLogentriesDefinition({
         token: opts.logentriesToken
       })
-    ];
+    ]
   }
 
-  return bunyan.createLogger(_opts);
+  return bunyan.createLogger(_opts)
 }
 
 function createFactory(opts) {
   return function () {
-    return createLogger(opts);
-  };
+    return createLogger(opts)
+  }
 }
 
 module.exports = {
-  createFactory,
-};
+  createFactory
+}

@@ -3,6 +3,9 @@
   "version": "1.0.2",
   "author": "Daiwei Lu <daiweilu123@gmail.com> (http://daiwei.lu/)",
   "license": "MIT",
+  "engines": {
+    "node": "6.3.1"
+  },
   "main": "src/index.js",
   "dependencies": {
     "bunyan": "1.8.1",
@@ -13,8 +16,8 @@
     "raven": "0.11.0"
   },
   "devDependencies": {
-    "eslint": "3.0.1",
-    "eslint-plugin-node": "2.0.0",
+    "eslint": "3.3.0",
+    "eslint-config-d6u": "1.2.1",
     "greenkeeper-postpublish": "^1.0.0"
   },
   "scripts": {

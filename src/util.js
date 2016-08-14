@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
 const {pipe, map, evolve, over, lensPath, invoker, fromPairs, when,
-  identity} = require('ramda');
-const bunyan = require('bunyan');
+  identity} = require('ramda')
+const bunyan = require('bunyan')
 
 const LEVELS = {
   '60': 'fetal',
@@ -10,8 +10,8 @@ const LEVELS = {
   '40': 'warn',
   '30': 'info',
   '20': 'debug',
-  '10': 'trace',
-};
+  '10': 'trace'
+}
 
 const transformLogData = evolve({
   level: (val) => LEVELS[val],
@@ -22,14 +22,14 @@ const transformLogData = evolve({
       identity, // filter out falsy value
       pipe(
         invoker(1, 'split')(/; /),
-        map(invoker(1, 'split')(/\=/)),
+        map(invoker(1, 'split')(/=/)),
         fromPairs
       )
     )
-  ),
-});
+  )
+})
 
 module.exports = {
   LEVELS,
-  transformLogData,
-};
+  transformLogData
+}
